@@ -14,7 +14,7 @@ import 'whatwg-fetch';
 @connect((store) => {
     return {
         content : store.ohjicBoard.ohjicBoard.board_content,
-        comment : store.ohjicBoard.ohjicBoard.board_comment,
+        comment : store.ohjicBoard.ohjicBoard.board_comment
     };
 },{ReadOhjicBoard})
 export default class BoardDetail extends Component{
@@ -83,7 +83,7 @@ export default class BoardDetail extends Component{
             board_key: this.props.content.board_key,
             member_key: this.props.member_key,
             comment_content : commentContent
-        }
+        };
 
         var data = new FormData();
         data.append( "insert_comment", JSON.stringify( insert_comment ) );
@@ -124,7 +124,7 @@ export default class BoardDetail extends Component{
         fetch(types.SERVER_URL+`/api/Board/delete_board_comment?comment_key=`+comment_key)
             .then((response) => {
                 if(response.ok){
-                    return response;
+                    return response.json();
                 } else {
                     throw new Error("Server response wasn't OK");
                 }
@@ -157,7 +157,7 @@ export default class BoardDetail extends Component{
             member_key: this.props.member_key,
             content : updateBoardContent,
             title : updateBoardTitle
-        }
+        };
 
         var data = new FormData();
         data.append( "update_board", JSON.stringify( update_board ) );
