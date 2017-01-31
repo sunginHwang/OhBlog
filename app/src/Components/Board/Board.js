@@ -5,7 +5,8 @@ import { Router, Route, browserHistory } from 'react-router';
 import 'whatwg-fetch';
 import BoardWrite from './BoardWrite';
 import BoardTable from './BoardTable';
-import * as types from '../../const/CommonVal'
+import * as types from '../../const/CommonVal';
+import {h_feach} from '../../common/commonFunction';
 
 import { memberLogin }  from '../../reducers/memberReducers';
 import { GetOhjicTable, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers/OhjicReducers';
@@ -14,6 +15,7 @@ import { GetOhjicTable, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers
 @connect((store) => {
     return {
         ohjic : store.ohjicBoard.ohjic,
+        categotry : store.ohjicBoard.boardCategory
     };
 },{GetOhjicTable, DeleteOhjicTable, ReadOhjicBoard})
 export default class Board extends Component{
@@ -79,8 +81,7 @@ export default class Board extends Component{
                  }
              })
              .catch((error) => {
-                 alert('사진 업로드 중 문제가 발생하였습니다.');
-                 console.log(error);
+                 alert(types.SERVER_ERROR_MSG);
              });
 
     }

@@ -14,11 +14,13 @@ export default class SideBar extends Component{
     constructor()
     {
         super();
+        this.loginCheck = this.loginCheck.bind(this);
         this.memberLogout = this.memberLogout.bind(this);
         this.getBoardCategoryList = this.getBoardCategoryList.bind(this);
         this.menuToggleClick = this.menuToggleClick.bind(this);
     }
     componentDidMount(){
+        /*  this.loginCheck();*/
         this.getBoardCategoryList();
     }
 
@@ -39,11 +41,31 @@ export default class SideBar extends Component{
             });
     }
 
+    loginCheck(){
+        fetch(types.SERVER_URL+'/api/Member/loginStatusCheck')
+            .then((response) => {
+                if(response.ok){
+                    return response.json();
+                } else {
+                    throw new Error("Server response wasn't OK");
+                }
+            })
+            .then((responseData) => {
+                if(responseData['status'] == 'success'){
+                    this.props.memberLogin(responseData['result']['member_key'],responseData['result']['member_id']);
+                }
+            })
+            .catch((error) => {
+                console.log(types.CLIENT_ERROR_MSG);
+            });
+    }
+
     memberLogout(){
         alert('로그아웃되었습니다');
         this.props.memberLogin(-1,'none');
     }
 
+    /*로그인 유지시의 이부분 처리 요망*/
     componentWillReceiveProps(nextProps){
         this.props.login.member.member_key != nextProps.login.member.member_key ? this.props.history.pushState(null,'/') : '';
     }
@@ -61,7 +83,11 @@ export default class SideBar extends Component{
         if(this.props.boardCategory.boardCategory != undefined){
             BoardCategoryList = this.props.boardCategory.boardCategory.map((index)=> {
                 let hrefParam = `/board/${index.category_key}`;
-                return <li><Link key={index.category_key} to={hrefParam} >{index.category_name}<span className="icon fa-th"></span></Link></li>
+                return <li key={index.category_key}>
+                            <Link key={index.category_key} to={hrefParam} >
+                                {index.category_name}<span className="icon fa-th"></span>
+                            </Link>
+                        </li>
             });
         }
        if(this.props.login.member.member_key == -1){

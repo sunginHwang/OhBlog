@@ -33,8 +33,6 @@ export default class login extends Component{
         }
 
 
-
-
         fetch(types.SERVER_URL+`/api/Member/loginMember?member_id=${member_id}&member_password=${member_password}`).then((response) => {
                 if(response.ok){
                     return response.json();
@@ -65,8 +63,8 @@ export default class login extends Component{
                         <header><div className="member_title"><p>로그인</p></div></header>
                         <div className="member_input_contents">
                             <div className="member_info_area">
-                                <input className="input_id" type="text" placeholder="id" ref="user_id" maxlength="20"/>
-                                <input className="input_pwd" type="password" placeholder="pwd" ref="pwd" maxlength="20"/>
+                                <input className="input_id" type="text" placeholder="id" ref="user_id" maxLength="20"/>
+                                <input className="input_pwd" type="password" placeholder="pwd" ref="pwd" maxLength="20"/>
                                 <button className="member_submit_btn" onClick={this.memberLogin}>로그인</button>
                             </div>
                         </div>

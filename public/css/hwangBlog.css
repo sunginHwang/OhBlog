@@ -131,7 +131,9 @@ pre {
 .member_input_contents {padding-top: 1em;}
 /*회원가입*/
 .member_check_area{padding-top: 1em;  text-align: center;  color: #888;}
-
+/*회원가입 중복체크 임시처리 클래스*/
+.member_check_area .tempinput {width: 70%;float: left;}
+.member_check_area .tempbtn {width: 30%;margin-top: 0.5em;}
 
 
 @media (max-width: 960px) {
@@ -267,5 +269,7 @@ pre {
 
 
     .article_comment{padding: 0 1em;}
+
+
 
 }

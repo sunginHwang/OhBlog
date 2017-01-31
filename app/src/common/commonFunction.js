@@ -39,10 +39,10 @@ export function doFunction(url,mode){
 }
 
 
-export function h_feach(url,mode){
+export function h_feach(url,mode,successFunc,errorFunc){
     let result = '';
 
-        fetch(url,{
+         fetch(url,{
             method: mode
         }).then((response) => {
                 if(response.ok){
@@ -52,10 +52,13 @@ export function h_feach(url,mode){
                 }
             })
             .then((responseData) => {
-                console.log(responseData);
-                result = responseData;
+                if(typeof(successFunc) == 'function'){
+                    console.log(responseData);
+                    successFunc(responseData);
+                }
             })
             .catch((error) => {
+
                 alert('서버와의 통신중 문제가 발생하였습니다');
                 console.log(error);
             });

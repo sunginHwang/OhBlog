@@ -49,7 +49,8 @@ const initialState ={
             member_key : '',
             member_id : '',
             regi_date : '',
-            category_name : ''
+            category_name : '',
+            board_category_img : ''
         },
         board_comment : {
             comment_key : '-1',

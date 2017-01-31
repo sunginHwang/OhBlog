@@ -29,6 +29,7 @@ export default class BoardDetail extends Component{
         this.insertComment = this.insertComment.bind(this);
         this.deleteComments = this.deleteComments.bind(this);
         this.updateBoard = this.updateBoard.bind(this);
+        this.deleteBoard = this.deleteBoard.bind(this);
         this.BoardUpdateClick = this.BoardUpdateClick.bind(this);
         this.showBoardDetail = this.showBoardDetail.bind(this);
     }
@@ -191,6 +192,43 @@ export default class BoardDetail extends Component{
         $("#commentInput").val('');
     }
 
+    deleteBoard(){
+        if(this.props.member_key != this.props.content.member_key){
+            alert('글 삭제는 본인만 가능합니다');return;
+        }
+
+        var delete_board = {
+            board_key: this.props.content.board_key,
+            member_key: this.props.member_key
+
+        };
+
+        var data = new FormData();
+        data.append( "delete_board", JSON.stringify( delete_board ) );
+
+        fetch(types.SERVER_URL+`/api/Board/delete_board`,{
+            method: 'POST',
+            body: data
+        }).then((response) => {
+                if(response.ok){
+                    return response.json();
+                } else {
+                    throw new Error("Server response wasn't OK");
+                }
+            }).then((responseData) => {
+                if(responseData['state'] == 'success'){
+                    alert(responseData['msg']);
+                    this.props.history.pushState(null,'/board/'+this.props.content.category_key);
+                }else if(responseData['state'] == 'fail'){
+                    alert(responseData['msg']);
+                }else{
+                    alert(types.CLIENT_ERROR_MSG);
+                }
+            }).catch((error) => {
+                alert(types.SERVER_ERROR_MSG);
+            });
+    }
+
     BoardUpdateClick(){
         if(this.props.member_key != this.props.content.member_key){
             alert('글 수정은 본인만 가능합니다');return;
@@ -233,6 +271,7 @@ export default class BoardDetail extends Component{
     render(){
         let comment = '';
         let updateButton = '';
+        let deleteButton = '';
         let commnetInsert = '';
         if(this.props.comment.length >=1 && this.state.boardUpdateState === false){
             comment = this.props.comment.map((index)=>{return <BoardComment key={index.comment_key}
@@ -244,9 +283,11 @@ export default class BoardDetail extends Component{
             if(this.state.boardUpdateState === true){
                 updateButton =  <button onClick={(event)=>this.updateBoard()}>수정완료</button>;
                 commnetInsert = '';
+                deleteButton = '';
             }else{
                 updateButton =  <button onClick={(event)=>this.BoardUpdateClick()}>게시글 수정</button>;
                 commnetInsert = <BoardCommentInsert insertComment={this.insertComment}/>;
+                deleteButton =  <button onClick={(event)=>this.deleteBoard()}>삭제</button>;
             }
         }else{
             commnetInsert = <BoardCommentInsert insertComment={this.insertComment}/>;
@@ -263,6 +304,7 @@ export default class BoardDetail extends Component{
                             <div className="board_content_area_header_title"><h3>{this.props.content.title}</h3></div>
                             <div className="board_content_area_header_sub"><span>{this.props.content.regi_date} 글쓴이 :  {this.props.content.member_id}</span></div>
                             <div className="board_content_area_edit">{updateButton}</div>
+                            <div className="board_content_area_edit">{deleteButton}</div>
                         </header>
                         <div className="board_content_area_body">
                             <div className="board_content" dangerouslySetInnerHTML={ {__html: this.props.content.content} }></div>

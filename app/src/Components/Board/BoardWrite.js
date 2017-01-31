@@ -24,7 +24,6 @@ export default class BoardWrite extends Component{
                         method: 'POST',
                         body: data
                     }).then((response) => {
-
                             if(response.ok){return response.json();}
                             else {throw new Error("Server response wasn't OK");}
                         })
@@ -64,16 +63,16 @@ export default class BoardWrite extends Component{
     }
 
     BoardWrite(title,content){
-        var insert_board = {
+        let insert_board = {
             title : title,
             content: content,
             member_key : this.props.member_key,
-            category_key : this.props.params.category_key
+            category_key : this.props.params.category_key,
         }
 
         var data = new FormData();
         data.append( "insert_board", JSON.stringify( insert_board ) );
-
+        data.append('board_sub_img',this.refs.board_sub_img.files[0]);
         fetch(types.SERVER_URL+`/api/Board/insert_board`,{
             method: 'POST',
             body: data
@@ -112,9 +111,11 @@ export default class BoardWrite extends Component{
                         <header className="board_content_area_header">
                             <div className="board_content_area_header_title"><input type="text" id="title" placeholder="제목을 입력하세요."/></div>
                             <div className="board_content_area_header_sub"><span>작성자 아이디 : {this.props.member_id}</span></div>
+
                             <div className="board_content_area_edit"> <button id="sss" title="Hooray!" onClick={(event)=>this.writeForm()}>글 작성하기</button></div>
                         </header>
                         <div className="board_content_area_body">
+                            <div><span>게시판 대표 이미지</span><input type="file" ref="board_sub_img" id="board_sub_img"/></div>
                             <div id="summernote"></div>
                         </div>
                     </div>
