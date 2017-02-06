@@ -39,8 +39,9 @@ var config = {
   devServer: {
     contentBase: "./public",
     colors: true,
-    port: 8080,
+    port: 80,
     historyApiFallback: true,
+    host : 'http:www.woolta.com',
     inline: true
   },
 }
