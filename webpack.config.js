@@ -39,7 +39,7 @@ var config = {
   devServer: {
     contentBase: "./public",
     colors: true,
-    port: 800,
+    port: 80,
     historyApiFallback: true,
     inline: true
   },
