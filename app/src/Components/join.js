@@ -53,7 +53,6 @@ export default class join extends Component{
                 }
             })
             .catch((error) => {
-                console.log(error);
                 alert(types.SERVER_ERROR_MSG);
             });
 

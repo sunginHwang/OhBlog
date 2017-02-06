@@ -95,6 +95,7 @@ export default class SideBar extends Component{
            join = <li><Link to="/join" >회원가입<span className="icon fa-user-plus"></span></Link></li>;
        }else{
            login =  <li><a href="#" >{this.props.login.member.member_id}<br/><p onClick={this.memberLogout}>로그아웃</p></a></li>;
+           join = <li><Link to="/edit" >정보수정<span className="icon fa-user-plus"></span></Link></li>
        }
 
         let child = this.props.children && React.cloneElement(this.props.children,

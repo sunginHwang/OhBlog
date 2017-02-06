@@ -25,7 +25,7 @@ render(<Provider store={store}>
                     <IndexRoute component = {Ohjic} />
                     <Route path='join' component={join}/>
                     <Route path='login' component={login}/>
-                    <Route path='memberEdit' component={memberEdit}/>
+                    <Route path='edit' component={memberEdit}/>
                     <Route path='board/:category_key' component={Board}/>
                     <Route path='board/NoCategoryBoard' component={NoCategoryBoard}/>
                     <Route path='boardDetail/:board_key' component={BoardDetail}/>

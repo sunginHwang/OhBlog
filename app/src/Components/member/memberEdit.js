@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
+import * as types from '../../const/CommonVal';
+import { memberLogin }  from '../../reducers/memberReducers';
 
+
+@connect((store) => {
+    return {login : store.memberReducers.login};})
 export default class memberEdit extends Component{
 
     constructor() {
         super();
-        this.state = {
-            idCheck : false
-        };
-        this.memberJoin = this.memberJoin.bind(this);
-        this.checkMemberId = this.checkMemberId.bind(this);
+        this.member_edit = this.member_edit.bind(this);
+        this.memberInfoAutoInsert = this.memberInfoAutoInsert.bind(this);
 
     }
 
-    checkMemberId(){
-        var member_id = this.refs.user_id.value;
-
-        if(member_id== '' || member_id == undefined) {
-            alert('아이디를 입력해 주세요.');
-            return;
-        }
-        if(member_id.length >= 20){
-            alert('아이디를 20글자 이내로 입력하세요.');
-            return;
-        }
-
-        fetch(`http://ohjic.qfun.kr/api/Member/checkMemberId?check_member_id=${member_id}`).then((response) => {
+    componentDidMount(){
+        let member_key =  this.props.login.member.member_key;
+        fetch(`http://ohjic.qfun.kr/api/Member/get_member_info?member_key=${member_key}`).then((response) => {
                 if(response.ok){
                     return response.json();
                 } else {
@@ -34,35 +26,41 @@ export default class memberEdit extends Component{
                 }
             })
             .then((responseData) => {
-                if(responseData['memberIdCheck']){
-                    this.setState({idCheck : true});
-                    alert('아이디를 사용하셔도 됩니다');
+                if(responseData['status'] == 'success'){
+                   this.memberInfoAutoInsert(responseData['result']);
                 }else{
-                    this.setState({idCheck : false});
-                    alert('이미 존재하는 아이디 입니다');
+                    console.log(responseData);
                 }
             })
             .catch((error) => {
-                console.log(error);
+                alert(types.SERVER_ERROR_MSG);
             });
+    }
 
+    memberInfoAutoInsert(member_info){
 
+        this.refs.member_id.value = member_info['member_id'];
+        this.refs.name.value = member_info['member_name'];
+        this.refs.cellPhoneNumber.value = member_info['member_phone'];
+        this.refs.email.value = member_info['member_email'];
     }
 
 
-    memberJoin(){
-        if(!this.state.idCheck){
-            alert('아이디 중복체크를 해주세요.');
-            return;
-        }
-        if(this.refs.pwd.value != this.refs.pwdChk.value){
-            alert('비밀번호 확인을 다시 체크해주세요.');
+
+    member_edit(){
+        if(this.refs.prePwd.value == ''){
+            alert("회원정보 수정에는 이전 비밀번호가 필요합니다");
             return;
         }
 
+        if(this.refs.pwd.value =='' && (this.refs.pwd.value != this.refs.pwdChk.value)){
+            alert("변경하실 비밀번호 가 확인과 일치하지 않습니다.");
+            return;
+        }
 
-        var insert_member = {
-            member_id : this.refs.user_id.value,
+        var update_member = {
+            member_id : this.refs.member_id.value,
+            member_pre_password: this.refs.prePwd.value,
             member_password: this.refs.pwd.value,
             member_nickname : this.refs.nickName.value,
             member_name : this.refs.name.value,
@@ -72,25 +70,24 @@ export default class memberEdit extends Component{
         };
 
         var data = new FormData();
-        data.append( "insert_member", JSON.stringify( insert_member ) );
+        data.append( "update_member", JSON.stringify( update_member ) );
 
-        fetch(`http://ohjic.qfun.kr/api/Member/insert_Member`,{
+        fetch(types.SERVER_URL+`/api/Member/update_Member`,{
             method: 'POST',
             body: data
         })
             .then((response) => {
                 if(response.ok){
-                    return response;
+                    return response.json();;
                 } else {
                     throw new Error("Server response wasn't OK");
                 }
             })
             .then((responseData) => {
-                alert('회원가입을 축하드립니다.');
+                responseData['status'] == 'success' ? alert(responseData['msg']) : alert(responseData['msg']);
             })
             .catch((error) => {
-                alert('회원가입시 오류가 발생하였습니다. 문의 부탁드립니다.')
-                console.log(error);
+                alert(types.SERVER_ERROR_MSG);
             });
 
     }
@@ -103,7 +100,7 @@ export default class memberEdit extends Component{
                     <header><div class="member_title"><p>회원정보 변경</p></div></header>
                     <div className="member_input_contents">
                         <div className="member_info_area">
-                            <h2>gommpo</h2>
+                            <input ref="member_id" type="text" maxLength="20" disabled/>
                             <input className="input_pwd" ref="prePwd" type="password" maxLength="20" placeholder="이전비밀번호"/>
                             <input className="input_pwd" ref="pwd" type="password" maxLength="20" placeholder="변경할비밀번호"/>
                             <input className="input_pwd_confirm" ref="pwdChk" type="password" maxLength="20" placeholder="변경할비밀번호확인"/>
@@ -112,8 +109,8 @@ export default class memberEdit extends Component{
                             <input className="input_age" ref="age" type="text" maxLength="20" placeholder="나이"/>
                             <input className="input_phoneNumber" ref="cellPhoneNumber" type="text" placeholder="핸드폰번호"/>
                             <input className="input_email" ref="email" type="text" maxLength="20" placeholder="이메일"/>
-                            <div className="member_check_area"><p>비밀번호를 확인해주세요</p></div>
-                            <button className="member_submit_btn" onClick={this.memberJoin}>회원가입하기</button>
+                            <div className="member_check_area"><p></p></div>
+                            <button className="member_submit_btn" onClick={this.member_edit}>회원정보수정</button>
                         </div>
                     </div>
                 </div>
