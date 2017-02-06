@@ -7,7 +7,7 @@ export default function configureStore() {
 
     const logger = createLogger();
 
-    const store = createStore(reducer,applyMiddleware(thunk, logger));
+    const store = createStore(reducer,applyMiddleware(thunk));
 
     return store;
 }

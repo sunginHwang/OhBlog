@@ -18,7 +18,7 @@ export default class memberEdit extends Component{
 
     componentDidMount(){
         let member_key =  this.props.login.member.member_key;
-        fetch(`http://ohjic.qfun.kr/api/Member/get_member_info?member_key=${member_key}`).then((response) => {
+        fetch(types.SERVER_URL+`/api/Member/get_member_info?member_key=${member_key}`).then((response) => {
                 if(response.ok){
                     return response.json();
                 } else {
