@@ -73,6 +73,7 @@ export default class BoardWrite extends Component{
         var data = new FormData();
         data.append( "insert_board", JSON.stringify( insert_board ) );
         data.append('board_sub_img',this.refs.board_sub_img.files[0]);
+
         fetch(types.SERVER_URL+`/api/Board/insert_board`,{
             method: 'POST',
             body: data
@@ -87,6 +88,7 @@ export default class BoardWrite extends Component{
             .then((responseData) => {
                 if(responseData['state'] == 'success'){
                     alert(responseData['msg']);
+                    localStorage.setItem('boardListScroll', 0);
                     this.props.history.pushState(null,`/board/${this.props.params.category_key}`);
                 }else if(responseData['state'] == 'fail'){
                     alert(responseData['msg']);
