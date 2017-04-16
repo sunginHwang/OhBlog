@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-
+import * as types from '../../const/CommonVal';
 
 export default class BoardComment extends Component{
 
@@ -14,7 +14,7 @@ export default class BoardComment extends Component{
                     <div className="board_comment_lists"  id={this.props.comment.comment_key}>
                         <div className="board_comment_lists_body">
                             <div className="board_comment_lists_body_img">
-                                <image className="board_comment_lists_body_img_tag" src="http://ohjic.qfun.kr/uploads/noImage.png"></image>
+                                <image className="board_comment_lists_body_img_tag" src={types.SERVER_URL+`/uploads/noImage.png`}></image>
                             </div>
                             <div className="board_comment_lists_body_contents">
                                 <span className="comment_writer">{this.props.comment.member_nickname}</span><span className="comment_date" >2016-12-31</span>

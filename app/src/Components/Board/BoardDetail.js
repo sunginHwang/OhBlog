@@ -251,7 +251,7 @@ export default class BoardDetail extends Component{
                     })
                     .then((responseData) => {
                         if(responseData['state'] == 'success'){
-                            var img_url = 'http://ohjic.qfun.kr/uploads/'+responseData['img_url'];
+                            var img_url = types.SERVER_URL+'/uploads/'+responseData['img_url'];
                             $('.board_content').summernote('editor.insertImage', img_url);
                         }else{
                             alert(responseData['msg']);

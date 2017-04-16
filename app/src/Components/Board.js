@@ -4,6 +4,7 @@ import SideBar from './SideBar';
 import OhjicBoardContent from './OhjicBoardContent';
 import { connect } from 'react-redux';
 import { ReadOhjicBoard }  from '../reducers/OhjicReducers';
+import * as types from '../../const/CommonVal';
 
 @connect((store) => {
     return {
@@ -13,7 +14,7 @@ import { ReadOhjicBoard }  from '../reducers/OhjicReducers';
 export default class Board extends Component{
 
     componentDidMount() {
-        fetch(`http://ohjic.qfun.kr/api/Board/get_board_content?id=${this.props.params.id}`)
+        fetch(types.SERVER_URL+`/api/Board/get_board_content?id=${this.props.params.id}`)
             .then((response) => {
                 if(response.ok){
                     return response.json();
