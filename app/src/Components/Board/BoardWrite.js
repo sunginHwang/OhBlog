@@ -88,7 +88,6 @@ export default class BoardWrite extends Component{
             .then((responseData) => {
                 if(responseData['state'] == 'success'){
                     alert(responseData['msg']);
-                    localStorage.setItem('boardListScroll', 0);
                     this.props.history.pushState(null,`/board/${this.props.params.category_key}`);
                 }else if(responseData['state'] == 'fail'){
                     alert(responseData['msg']);
