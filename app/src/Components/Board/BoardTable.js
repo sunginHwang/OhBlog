@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link, Router, Route, browserHistory } from 'react-router';
 import BoardListComponent from './BoardListComponent';
 import * as types from '../../const/CommonVal'
-import { GetOhjicTable , ReadOhjicBoard}  from '../../reducers/OhjicReducers';
+import { GetOhjicTable }  from '../../reducers/OhjicReducers';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'jquery/dist/jquery.min.js';
@@ -17,7 +17,7 @@ require('../../summernote/summernote.js');
     return {
         ohjic : store.ohjic,
     };
-},{GetOhjicTable, ReadOhjicBoard})
+},{GetOhjicTable})
 export default class BoardTable extends Component{
 
     constructor()

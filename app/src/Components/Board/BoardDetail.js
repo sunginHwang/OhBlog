@@ -31,41 +31,16 @@ export default class BoardDetail extends Component{
         this.updateBoard = this.updateBoard.bind(this);
         this.deleteBoard = this.deleteBoard.bind(this);
         this.BoardUpdateClick = this.BoardUpdateClick.bind(this);
-        this.showBoardDetail = this.showBoardDetail.bind(this);
     }
 
     componentDidMount() {
         $(window).scrollTop(0);
-        this.showBoardDetail(this.props.params.board_key);
+        this.props.ReadOhjicBoard(this.props.params.board_key).catch(error => {alert('정지 게시판 처리');
+            this.props.history.pushState(null,'/');});
     }
 
     componentWillReceiveProps(nextProps){
 
-    }
-
-    showBoardDetail(board_key){
-        fetch(types.SERVER_URL+`/api/Board/get_board_content?board_key=${board_key}`)
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                if(responseData['state'] == 'success'){
-                    this.props.ReadOhjicBoard(responseData['result']);
-                }else if(responseData['state'] == 'fail'){
-                    alert(responseData['msg']);
-                    this.props.history.pushState(null,'/');
-                }else{
-                    alert(types.CLIENT_ERROR_MSG);
-                }
-
-            })
-            .catch((error) => {
-                alert(types.SERVER_ERROR_MSG);
-            });
     }
 
     insertComment(){

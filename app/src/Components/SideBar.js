@@ -16,29 +16,12 @@ export default class SideBar extends Component{
         super();
         this.loginCheck = this.loginCheck.bind(this);
         this.memberLogout = this.memberLogout.bind(this);
-        this.getBoardCategoryList = this.getBoardCategoryList.bind(this);
         this.menuToggleClick = this.menuToggleClick.bind(this);
     }
     componentDidMount(){
         /*  this.loginCheck();*/
-        this.getBoardCategoryList();
-    }
+        this.props.GetBoardCategory();
 
-    getBoardCategoryList(){
-        fetch(types.SERVER_URL+'/api/Board/get_board_category')
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                this.props.GetBoardCategory(responseData);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     }
 
     loginCheck(){

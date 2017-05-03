@@ -19,7 +19,7 @@ var config = {
       exclude: /(node_modules)/,
       loader: 'babel',
       query: {
-        presets: ['es2015','react'],
+        presets: ['es2015','react','stage-2'],
         plugins: ['transform-decorators-legacy']
       }
     },
@@ -39,7 +39,7 @@ var config = {
   devServer: {
     contentBase: "./public",
     colors: true,
-    port: 80,
+    port: 8004,
     historyApiFallback: true,
     inline: true
   },

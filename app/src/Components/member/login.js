@@ -31,27 +31,7 @@ export default class login extends Component{
             alert('비밀번호를 입력해주세요.');
             return;
         }
-
-
-        fetch(types.SERVER_URL+`/api/Member/loginMember?member_id=${member_id}&member_password=${member_password}`).then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                if(responseData['status'] == 'success'){
-                    alert('로그인 성공');
-                    this.props.memberLogin(responseData['result'],member_id);
-                }else{
-                    alert(responseData['msg']);
-                }
-
-            })
-            .catch((error) => {
-                alert(types.SERVER_ERROR_MSG);
-            });
+        this.props.memberLogin(member_id,member_password).catch((error) => {alert('로그인 실패');});
 
     }
 

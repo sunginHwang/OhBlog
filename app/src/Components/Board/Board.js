@@ -9,7 +9,7 @@ import * as types from '../../const/CommonVal';
 import {h_feach} from '../../common/commonFunction';
 
 import { memberLogin }  from '../../reducers/memberReducers';
-import { GetOhjicTable, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers/OhjicReducers';
+import { GetBoardList, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers/OhjicReducers';
 
 
 @connect((store) => {
@@ -17,21 +17,21 @@ import { GetOhjicTable, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers
         ohjic : store.ohjicBoard.ohjic,
         categotry : store.ohjicBoard.boardCategory
     };
-},{GetOhjicTable, DeleteOhjicTable, ReadOhjicBoard})
+},{GetBoardList, DeleteOhjicTable, ReadOhjicBoard})
 export default class Board extends Component{
     constructor()
     {
+        console.log('constructor');
         super();
         this.writeBoard = this.writeBoard.bind(this);
-        this.category_board_show = this.category_board_show.bind(this);
         this.GoBoardDetail = this.GoBoardDetail.bind(this);
         this.makeGridCard = this.makeGridCard.bind(this);
     }
 
-    componentDidMount(){
-
+    componentDidMount(){ console.log('componentDidMount');
         if(this.props.ohjic.BoardLists == false ){
-            this.category_board_show(this.props.params.category_key);
+            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 계시판 처리');
+                this.props.history.pushState(null,'/');});
         }else{
             $(window).scrollTop(localStorage.getItem('boardListScroll'));
         }
@@ -39,14 +39,15 @@ export default class Board extends Component{
     }
 
     componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps');
         if(this.props.params.category_key != nextProps.params.category_key){
             localStorage.setItem('boardListScroll', 0);
-            this.category_board_show(nextProps.params.category_key);
-
+            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 계시판 처리');
+                this.props.history.pushState(null,'/');});
         }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate(){ console.log('componentDidUpdate');
         this.makeGridCard();
     }
 
@@ -60,29 +61,6 @@ export default class Board extends Component{
                 transitionDuration : '0.8s',
             } );
         });
-
-    }
-
-    category_board_show(category){
-         fetch(types.SERVER_URL+'/api/Board/get_list?category='+category)
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-             .then((responseData) => {
-                 if(responseData['state'] == 'success'){
-                     this.props.GetOhjicTable(responseData['result']);
-                 }else{
-                     alert(responseData['msg']);
-                     this.props.history.pushState(null,'/');
-                 }
-             })
-             .catch((error) => {
-                 alert(types.SERVER_ERROR_MSG);
-             });
 
     }
 

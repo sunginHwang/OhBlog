@@ -20,7 +20,9 @@
     "webpack-dev-server": "~1.14.*"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "babel-polyfill": "^6.9.1",
+    "babel-preset-stage-2": "^6.24.1",
     "bootstrap-webpack": "0.0.5",
     "codemirror": "^5.11.0",
     "css-loader": "^0.25.0",
