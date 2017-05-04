@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import * as types from '../../const/CommonVal';
+import {InsertBoardContent}  from '../../reducers/OhjicReducers';
 
+
+@connect((store) => {return {};},{InsertBoardContent})
 export default class BoardWrite extends Component{
 
     constructor() {
@@ -70,36 +74,16 @@ export default class BoardWrite extends Component{
             category_key : this.props.params.category_key,
         }
 
-        var data = new FormData();
-        data.append( "insert_board", JSON.stringify( insert_board ) );
-        data.append('board_sub_img',this.refs.board_sub_img.files[0]);
+        var insert_data = new FormData();
+        insert_data.append( "insert_board", JSON.stringify( insert_board ) );
+        insert_data.append('board_sub_img',this.refs.board_sub_img.files[0]);
 
-        fetch(types.SERVER_URL+`/api/Board/insert_board`,{
-            method: 'POST',
-            body: data
-        })
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                if(responseData['state'] == 'success'){
-                    alert(responseData['msg']);
-                    this.props.history.pushState(null,`/board/${this.props.params.category_key}`);
-                }else if(responseData['state'] == 'fail'){
-                    alert(responseData['msg']);
-                    this.props.history.pushState(null,'/');
-                }else{
-                    alert(types.CLIENT_ERROR_MSG);
-                }
+        this.props.InsertBoardContent(insert_data)
+            .then(result => {alert('게시글 생성 성공');
+                             this.props.history.pushState(null,`/board/${this.props.params.category_key}`);})
+            .catch(error => {alert(types.SERVER_ERROR_MSG);
+                             this.props.history.pushState(null,'/');});
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
 
     }
 

@@ -4,7 +4,7 @@ export default () => {
     return  next => action => {
         console.log('dispatching', action);
         const { promise, type, ...rest } = action;
-        if (type != '@@router/LOCATION_CHANGE' && type != 'DELETE_BOARD')  {
+        if (type != '@@router/LOCATION_CHANGE' && type != 'DELETE_TODO')  {
             next({...rest, type: `${type}_REQUEST`});
             return axios({
                 method: promise.method,

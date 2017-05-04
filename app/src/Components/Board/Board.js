@@ -21,16 +21,15 @@ import { GetBoardList, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers/
 export default class Board extends Component{
     constructor()
     {
-        console.log('constructor');
         super();
         this.writeBoard = this.writeBoard.bind(this);
         this.GoBoardDetail = this.GoBoardDetail.bind(this);
         this.makeGridCard = this.makeGridCard.bind(this);
     }
 
-    componentDidMount(){ console.log('componentDidMount');
+    componentDidMount(){
         if(this.props.ohjic.BoardLists == false ){
-            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 계시판 처리');
+            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 게시판 처리');
                 this.props.history.pushState(null,'/');});
         }else{
             $(window).scrollTop(localStorage.getItem('boardListScroll'));
@@ -39,15 +38,14 @@ export default class Board extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('componentWillReceiveProps');
         if(this.props.params.category_key != nextProps.params.category_key){
             localStorage.setItem('boardListScroll', 0);
-            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 계시판 처리');
+            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 게시판 처리');
                 this.props.history.pushState(null,'/');});
         }
     }
 
-    componentDidUpdate(){ console.log('componentDidUpdate');
+    componentDidUpdate(){
         this.makeGridCard();
     }
 

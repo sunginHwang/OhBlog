@@ -34,7 +34,6 @@ export default function memberReducers(state=initialState,action){
             };
         }
         case types.USER_LOGIN_SUCCESS : {
-            console.log(action.result.data);
             return {
                 ...state,
                 login : action.result.data,

@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import BoardComment from './BoardComment';
 import BoardCommentInsert from './BoardCommentInsert';
 import * as types from '../../const/CommonVal'
-import { ReadOhjicBoard }  from '../../reducers/OhjicReducers';
+import { ReadOhjicBoard, InsertBoardComment ,DeleteBoardComment,
+         UpdateBoardContent, DeleteBoardContent}  from '../../reducers/OhjicReducers';
 import { memberLogin }  from '../../reducers/memberReducers';
 import 'whatwg-fetch';
 
@@ -16,11 +17,12 @@ import 'whatwg-fetch';
         content : store.ohjicBoard.ohjicBoard.board_content,
         comment : store.ohjicBoard.ohjicBoard.board_comment
     };
-},{ReadOhjicBoard})
+},{ReadOhjicBoard, InsertBoardComment, DeleteBoardComment, UpdateBoardContent, DeleteBoardContent})
 export default class BoardDetail extends Component{
 
     constructor()
     {
+
         super();
         this.state = {
             boardUpdateState : false
@@ -40,7 +42,6 @@ export default class BoardDetail extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-
     }
 
     insertComment(){
@@ -61,32 +62,9 @@ export default class BoardDetail extends Component{
             comment_content : commentContent
         };
 
-        var data = new FormData();
-        data.append( "insert_comment", JSON.stringify( insert_comment ) );
-
-        fetch(types.SERVER_URL+`/api/Board/insert_board_comment`,{
-            method: 'POST',
-            body: data
-        })
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                if(responseData['state'] == 'success'){
-                    this.showBoardDetail(this.props.content.board_key);
-                }else if(responseData['state'] == 'fail'){
-                    alert(responseData['msg']);
-                }else{
-                    alert(types.CLIENT_ERROR_MSG);
-                }
-            })
-            .catch((error) => {
-                alert(types.SERVER_ERROR_MSG);
-            });
+        this.props.InsertBoardComment(insert_comment)
+                    .then(result => {this.props.ReadOhjicBoard(this.props.content.board_key);})
+                    .catch(error => {alert(types.SERVER_ERROR_MSG)});
 
         $("#commentInput").val('');
 
@@ -97,26 +75,10 @@ export default class BoardDetail extends Component{
             alert('댓글삭제는 본인만 가능합니다');return;
         }
 
-        fetch(types.SERVER_URL+`/api/Board/delete_board_comment?comment_key=`+comment_key)
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                if(responseData['state'] == 'success'){
-                    this.showBoardDetail(board_key);
-                }else if(responseData['state'] == 'fail'){
-                    alert(responseData['msg']);
-                }else{
-                    alert(types.CLIENT_ERROR_MSG);
-                }
-            })
-            .catch((error) => {
-                alert(types.SERVER_ERROR_MSG);
-            });
+        this.props.DeleteBoardComment(comment_key)
+            .then(result => {this.props.ReadOhjicBoard(board_key);})
+            .catch(error => {alert(types.SERVER_ERROR_MSG)});
+
     }
 
     updateBoard(){
@@ -127,7 +89,6 @@ export default class BoardDetail extends Component{
         var updateBoardContent = $('.board_content').summernote('code');
         var updateBoardTitle = $(".board_content_area_header_title").text();
 
-
         var update_board = {
             board_key: this.props.content.board_key,
             member_key: this.props.member_key,
@@ -135,34 +96,13 @@ export default class BoardDetail extends Component{
             title : updateBoardTitle
         };
 
-        var data = new FormData();
-        data.append( "update_board", JSON.stringify( update_board ) );
+        this.props.UpdateBoardContent(update_board)
+            .then(result => {alert('게시글 수정 성공');
+                             this.setState({boardUpdateState: false});
+                             $('.board_content').summernote('destroy');
+                            })
+            .catch(error => {alert(types.SERVER_ERROR_MSG)});
 
-        fetch(types.SERVER_URL+`/api/Board/update_board`,{
-            method: 'POST',
-            body: data
-        })
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                if(responseData['state'] == 'success'){
-                    alert(responseData['msg']);
-                    this.setState({boardUpdateState: false});
-                    $('.board_content').summernote('destroy');
-                }else if(responseData['state'] == 'fail'){
-                    alert(responseData['msg']);
-                }else{
-                    alert(types.CLIENT_ERROR_MSG);
-                }
-            })
-            .catch((error) => {
-                alert(types.SERVER_ERROR_MSG);
-            });
 
         $("#commentInput").val('');
     }
@@ -178,30 +118,11 @@ export default class BoardDetail extends Component{
 
         };
 
-        var data = new FormData();
-        data.append( "delete_board", JSON.stringify( delete_board ) );
-
-        fetch(types.SERVER_URL+`/api/Board/delete_board`,{
-            method: 'POST',
-            body: data
-        }).then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            }).then((responseData) => {
-                if(responseData['state'] == 'success'){
-                    alert(responseData['msg']);
-                    this.props.history.pushState(null,'/board/'+this.props.content.category_key);
-                }else if(responseData['state'] == 'fail'){
-                    alert(responseData['msg']);
-                }else{
-                    alert(types.CLIENT_ERROR_MSG);
-                }
-            }).catch((error) => {
-                alert(types.SERVER_ERROR_MSG);
-            });
+        this.props.DeleteBoardContent(delete_board)
+            .then(result => {alert('게시글 삭제 성공');
+                this.props.history.pushState(null,'/board/'+this.props.content.category_key);
+            })
+            .catch(error => {alert(types.SERVER_ERROR_MSG)});
     }
 
     BoardUpdateClick(){
