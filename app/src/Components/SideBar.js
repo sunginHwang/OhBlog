@@ -42,7 +42,7 @@ export default class SideBar extends Component{
                 console.log(types.CLIENT_ERROR_MSG);
             });
     }
-
+    /*로그아웃 구현 처리 해야 함*/
     memberLogout(){
         alert('로그아웃되었습니다');
         this.props.memberLogin(-1,'none');
