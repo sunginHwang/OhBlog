@@ -1,5 +1,5 @@
-import * as types from '../const/OhjicActionType'
-import * as commonTypes from '../const/CommonVal';
+import * as types from '../../const/ActionType'
+import * as commonTypes from '../../const/CommonVal';
 
 export function GetOhjicTable(data){
     return{
@@ -90,12 +90,11 @@ export function DeleteBoardComment(comment_key){
 
 }
 
-
 const initialState ={
-    ohjic : {
+    board : {
         BoardLists : [],
     },
-    ohjicBoard : {
+    boardRead : {
         board_content : {
             title : '',
             board_key : '-1',
@@ -120,7 +119,7 @@ const initialState ={
     isLoading: false,
 };
 
-export default function ohjicBoard(state=initialState,action){
+export default function boardReducers(state=initialState,action){
 
     switch(action.type){
 
@@ -134,7 +133,7 @@ export default function ohjicBoard(state=initialState,action){
             return {
                 ...state,
                 isLoading: false,
-                ohjic : action.result.data
+                board : action.result.data
             };
         }case types.GET_BOARD_LIST_FAILURE : {
             return {
@@ -196,7 +195,7 @@ export default function ohjicBoard(state=initialState,action){
             return {
                 ...state,
                 isLoading: false,
-                ohjicBoard : action.result.data
+                boardRead : action.result.data
             };
         }
         case types.READ_BOARD_FAILURE : {
@@ -283,12 +282,12 @@ export default function ohjicBoard(state=initialState,action){
 
         case types.GET_TODO : {
             return Object.assign({}, state, {
-                ohjic : action.userdata
+                board : action.userdata
             });
         }
         case types.DELETE_TODO : {
             return Object.assign({},state,{
-                ohjic : action.userdata
+                board : action.userdata
             });
             break;
         }

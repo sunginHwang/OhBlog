@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import * as types from '../../const/CommonVal';
-import {InsertBoardContent}  from '../../reducers/OhjicReducers';
+import {InsertBoardContent}  from '../../redux/reducers/boardReducers';
 
 
 @connect((store) => {return {};},{InsertBoardContent})

@@ -1,3 +1,6 @@
+/**
+ * Created by hwangseong-in on 2017. 5. 5..
+ */
 /*게시글 리스트 가져오기*/
 export const GET_BOARD_LIST = 'GET_BOARD_LIST';
 export const GET_BOARD_LIST_REQUEST = 'GET_BOARD_LIST_REQUEST';

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import * as types from '../const/CommonVal'
-import {DeleteOhjicTable} from '../reducers/OhjicReducers'
+import * as types from '../../const/CommonVal'
+import {DeleteOhjicTable} from '../../redux/reducers/boardReducers'
 
-@connect((store)=>{
-    return{};
-},{DeleteOhjicTable})
-export default class join extends Component{
+@connect((store)=>{return{};},{DeleteOhjicTable})
+export default class MemberJoin extends Component{
 
     constructor() {
         super();

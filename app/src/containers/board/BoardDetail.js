@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
-import BoardComment from './BoardComment';
-import BoardCommentInsert from './BoardCommentInsert';
+import BoardComment from '../../components/board/BoardComment';
+import BoardCommentInsert from '../../components/board/BoardCommentInsert';
 import * as types from '../../const/CommonVal'
 import { ReadOhjicBoard, InsertBoardComment ,DeleteBoardComment,
-         UpdateBoardContent, DeleteBoardContent}  from '../../reducers/OhjicReducers';
-import { memberLogin }  from '../../reducers/memberReducers';
+         UpdateBoardContent, DeleteBoardContent}  from '../../redux/reducers/boardReducers';
+import { memberLogin }  from '../../redux/reducers/memberReducers';
 import 'whatwg-fetch';
 
 
 
 @connect((store) => {
     return {
-        content : store.ohjicBoard.ohjicBoard.board_content,
-        comment : store.ohjicBoard.ohjicBoard.board_comment
+        content : store.boardReducers.boardRead.board_content,
+        comment : store.boardReducers.boardRead.board_comment
     };
 },{ReadOhjicBoard, InsertBoardComment, DeleteBoardComment, UpdateBoardContent, DeleteBoardContent})
 export default class BoardDetail extends Component{

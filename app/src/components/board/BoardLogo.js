@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 
 
-export default class OhjicLogo extends Component{
+export default class BoardLogo extends Component{
 
     render(){
         return(

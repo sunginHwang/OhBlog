@@ -7,7 +7,7 @@ var config = {
 
   devtool: 'eval-source-map',
   entry:  [
-    __dirname + "/app/src/Components/App.js",
+    __dirname + "/app/src/routes.js",
   ],
   output: {
     path: __dirname + "/public",

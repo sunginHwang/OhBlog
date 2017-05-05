@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import OhjicLogo from './OhjicLogo';
+import BoardLogo from '../../components/board/BoardLogo';
 import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 import {connect} from 'react-redux';
-import * as types from '../const/CommonVal'
-import { memberLogin }  from '../reducers/memberReducers';
-import { GetBoardCategory }  from '../reducers/OhjicReducers';
+import * as types from '../../const/CommonVal'
+import { memberLogin }  from '../../redux/reducers/memberReducers';
+import { GetBoardCategory }  from '../../redux/reducers/boardReducers';
 
 
-@connect((store) => { return {login : store.memberReducers.login,boardCategory : store.ohjicBoard.boardCategory};},{memberLogin,GetBoardCategory})
-export default class SideBar extends Component{
+@connect((store) => { return {login : store.memberReducers.login,boardCategory : store.boardReducers.boardCategory};},{memberLogin,GetBoardCategory})
+export default class MainContainer extends Component{
 
     constructor()
     {
@@ -90,7 +90,7 @@ export default class SideBar extends Component{
               <div id="headerToggle" onClick={this.menuToggleClick}><a href="#header" className="toggle"></a></div>
               <header id="main_header">
                   <div>
-                      <OhjicLogo />
+                      <BoardLogo />
                       <div id="toggleMenu" className="header_content">
                           <nav className="header_content_list">
                               <ul>

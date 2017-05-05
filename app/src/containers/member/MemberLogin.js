@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import * as types from '../../const/CommonVal';
-import { memberLogin }  from '../../reducers/memberReducers';
-import { DeleteOhjicTable } from '../../reducers/OhjicReducers';
+import { memberLogin }  from '../../redux/reducers/memberReducers';
+import { DeleteOhjicTable } from '../../redux/reducers/boardReducers';
 import { connect } from 'react-redux';
 
-@connect((store) => {
-    return {};},{memberLogin,DeleteOhjicTable})
-export default class login extends Component{
+@connect((store) => {return {};},{memberLogin,DeleteOhjicTable})
+export default class MemberLogin extends Component{
 
     constructor()
     {

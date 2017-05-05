@@ -6,16 +6,15 @@ import 'whatwg-fetch';
 import BoardWrite from './BoardWrite';
 import BoardTable from './BoardTable';
 import * as types from '../../const/CommonVal';
-import {h_feach} from '../../common/commonFunction';
 
-import { memberLogin }  from '../../reducers/memberReducers';
-import { GetBoardList, DeleteOhjicTable, ReadOhjicBoard }  from '../../reducers/OhjicReducers';
+import { memberLogin }  from '../../redux/reducers/memberReducers';
+import { GetBoardList, DeleteOhjicTable, ReadOhjicBoard }  from '../../redux/reducers/boardReducers';
 
 
 @connect((store) => {
     return {
-        ohjic : store.ohjicBoard.ohjic,
-        categotry : store.ohjicBoard.boardCategory
+        board : store.boardReducers.board,
+        categotry : store.boardReducers.boardCategory
     };
 },{GetBoardList, DeleteOhjicTable, ReadOhjicBoard})
 export default class Board extends Component{
@@ -28,7 +27,7 @@ export default class Board extends Component{
     }
 
     componentDidMount(){
-        if(this.props.ohjic.BoardLists == false ){
+        if(this.props.board.BoardLists == false ){
             this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 게시판 처리');
                 this.props.history.pushState(null,'/');});
         }else{
@@ -40,7 +39,7 @@ export default class Board extends Component{
     componentWillReceiveProps(nextProps){
         if(this.props.params.category_key != nextProps.params.category_key){
             localStorage.setItem('boardListScroll', 0);
-            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 게시판 처리');
+            this.props.GetBoardList(nextProps.params.category_key).catch(error => {alert('정지 게시판 처리');
                 this.props.history.pushState(null,'/');});
         }
     }
@@ -87,7 +86,7 @@ export default class Board extends Component{
                     <div className="board_write_button" onClick={(event)=>this.writeBoard()}>
                     </div>
                 </header>
-                <BoardTable name={this.props.ohjic.BoardLists}
+                <BoardTable name={this.props.board.BoardLists}
                             category_key={this.props.params.category_key}
                             member_key={this.props.member_key}
                             GoBoardDetail={this.GoBoardDetail}

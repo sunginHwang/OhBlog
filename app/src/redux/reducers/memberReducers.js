@@ -1,11 +1,10 @@
 /**
  * Created by hwangseong-in on 2016. 11. 27..
  */
-import * as types from '../const/OhjicActionType'
-import * as commonTypes from '../const/CommonVal';
+import * as types from '../../const/ActionType'
+import * as commonTypes from '../../const/CommonVal';
 
 export function memberLogin(member_id,member_password){
-    console.log('memberLogin');
     return{
         type : types.USER_LOGIN,
         promise: { method: 'get', url:commonTypes.SERVER_URL+'/api/Member/loginMember?member_id='+member_id+'&member_password='+member_password, data: null }
