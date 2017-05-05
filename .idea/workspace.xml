@@ -4,23 +4,15 @@
     <bookmark url="file:///Applications/MAMP/htdocs/application/libraries/Session.php" description="if($type == 'string'){" line="31" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee5591b5-0657-427e-b9dc-5488ed8b29d4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/Board/BoardComment.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/Board/BoardCommentInsert.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/Board/BoardListComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/Board/BoardLogo.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/Board/homeView.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/ErrorView/NoBoard.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/ErrorView/NoCategoryBoard.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/componentsss/member/memberEditForm.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/Components/Board/BoardComment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/Components/Board/BoardCommentInsert.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/Components/Board/BoardListComponent.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/Components/ErrorView/NoBoard.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/Components/ErrorView/NoCategoryBoard.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/Components/member/memberEditForm.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/components/board/BoardLogo.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/components/board/homeView.js" afterPath="" />
+    <list default="true" id="ee5591b5-0657-427e-b9dc-5488ed8b29d4" name="Default" comment="패키지 재설정">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/Board/BoardComment.js" afterPath="$PROJECT_DIR$/app/src/components/Board/BoardComment.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/Board/BoardCommentInsert.js" afterPath="$PROJECT_DIR$/app/src/components/Board/BoardCommentInsert.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/Board/BoardListComponent.js" afterPath="$PROJECT_DIR$/app/src/components/Board/BoardListComponent.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/Board/BoardLogo.js" afterPath="$PROJECT_DIR$/app/src/components/Board/BoardLogo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/Board/homeView.js" afterPath="$PROJECT_DIR$/app/src/components/Board/homeView.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/ErrorView/NoBoard.js" afterPath="$PROJECT_DIR$/app/src/components/ErrorView/NoBoard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/ErrorView/NoCategoryBoard.js" afterPath="$PROJECT_DIR$/app/src/components/ErrorView/NoCategoryBoard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/componentsss/member/memberEditForm.js" afterPath="$PROJECT_DIR$/app/src/components/member/memberEditForm.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/containers/board/BoardDetail.js" afterPath="$PROJECT_DIR$/app/src/containers/board/BoardDetail.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/containers/board/BoardTable.js" afterPath="$PROJECT_DIR$/app/src/containers/board/BoardTable.js" />
@@ -49,11 +41,41 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="BoardListComponent.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/src/componentsss/Board/BoardListComponent.js">
+          <file leaf-file-name="BoardListComponent.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/components/Board/BoardListComponent.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5987395">
+                <state vertical-scroll-proportion="0.0">
                   <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="BoardComment.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/components/Board/BoardComment.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NoCategoryBoard.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/components/ErrorView/NoCategoryBoard.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="BoardTable.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/src/containers/board/BoardTable.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -154,7 +176,7 @@
             </entry>
           </file>
           <file leaf-file-name="memberEditForm.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/componentsss/member/memberEditForm.js">
+            <entry file="file://$PROJECT_DIR$/app/src/components/member/memberEditForm.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
                   <caret line="29" column="64" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
@@ -454,7 +476,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="componentsss" />
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -480,7 +502,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="componentsss" />
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -506,7 +528,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="componentsss" />
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1039,7 +1061,7 @@
       <workItem from="1486282469048" duration="410000" />
       <workItem from="1486283169820" duration="203000" />
       <workItem from="1486283807833" duration="11304000" />
-      <workItem from="1493991872420" duration="238000" />
+      <workItem from="1493991872420" duration="299000" />
     </task>
     <task id="LOCAL-00001" summary="게시판 삭제기능 재정립 및 package.json 재정립">
       <created>1483879296408</created>
@@ -1083,11 +1105,17 @@
       <option name="project" value="LOCAL" />
       <updated>1493992006489</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="패키지 재설정">
+      <created>1493992131845</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1493992131845</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37468000" />
+    <option name="totallyTimeSpent" value="37529000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -1156,7 +1184,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/Board/BoardListComponent.js">
+    <entry file="file://$PROJECT_DIR$/app/src/components/Board/BoardListComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
@@ -1212,7 +1240,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/member/memberEditForm.js">
+    <entry file="file://$PROJECT_DIR$/app/src/components/member/memberEditForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="64" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
@@ -1304,17 +1332,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/Board/BoardCommentInsert.js">
+    <entry file="file://$PROJECT_DIR$/app/src/components/Board/BoardCommentInsert.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/Board/BoardComment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1325,10 +1347,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/ErrorView/NoBoard.js">
+    <entry file="file://$PROJECT_DIR$/app/src/components/ErrorView/NoBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1339,7 +1364,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/member/memberEditForm.js">
+    <entry file="file://$PROJECT_DIR$/app/src/components/member/memberEditForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="64" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
@@ -1419,10 +1444,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/componentsss/Board/BoardListComponent.js">
+    <entry file="file://$PROJECT_DIR$/app/src/components/Board/BoardListComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5987395">
+        <state vertical-scroll-proportion="0.0">
           <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/components/Board/BoardComment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/components/ErrorView/NoCategoryBoard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/containers/board/BoardTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

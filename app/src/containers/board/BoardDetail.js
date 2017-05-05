@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
-import BoardComment from '../../componentsss/board/BoardComment';
-import BoardCommentInsert from '../../componentsss/board/BoardCommentInsert';
+import BoardComment from '../../components/board/BoardComment';
+import BoardCommentInsert from '../../components/board/BoardCommentInsert';
 import * as types from '../../const/CommonVal'
 import { ReadOhjicBoard, InsertBoardComment ,DeleteBoardComment,
          UpdateBoardContent, DeleteBoardContent}  from '../../redux/reducers/boardReducers';
