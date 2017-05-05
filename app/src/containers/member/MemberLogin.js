@@ -15,10 +15,13 @@ export default class MemberLogin extends Component{
     }
 
     componentDidMount(){
-        this.props.DeleteOhjicTable();
+        const {DeleteOhjicTable} = this.props;
+        DeleteOhjicTable();
     }
 
     memberLogin(){
+        const {memberLogin} = this.props;
+
         var member_id = this.refs.user_id.value;
         var member_password = this.refs.pwd.value;
         if(member_id == ''){
@@ -30,7 +33,7 @@ export default class MemberLogin extends Component{
             alert('비밀번호를 입력해주세요.');
             return;
         }
-        this.props.memberLogin(member_id,member_password).catch((error) => {alert('로그인 실패');});
+        memberLogin(member_id,member_password).catch((error) => {alert('로그인 실패');});
 
     }
 

@@ -43,12 +43,13 @@ export default class BoardTable extends Component{
 
     /*무한스크롤*/
     BoardInfinityScroll(){
+        const {name, category_key, GetOhjicTable} = this.props;
         $(window).scroll(() => {
             // WHEN HEIGHT UNDER SCROLLBOTTOM IS LESS THEN 250
             if (($(document).height() - $(window).height() - $(window).scrollTop() < 250) && this.state.infinityScroll == false) {
-                let limit = this.props.name.length-1;
+                let limit = name.length-1;
                 this.setState({infinityScroll : true});
-                fetch(types.SERVER_URL+`/api/Board/get_list?category=${this.props.category_key}&limit=${limit}`)
+                fetch(types.SERVER_URL+`/api/Board/get_list?category=${category_key}&limit=${limit}`)
                     .then((response) => {
                         if(response.ok){
                             return response.json();
@@ -58,7 +59,7 @@ export default class BoardTable extends Component{
                     })
                     .then((responseData) => {
                         if(responseData['state'] == 'success'){
-                            this.props.GetOhjicTable(responseData['result']);
+                            GetOhjicTable(responseData['result']);
                         }else if(responseData['state'] == 'fail'){
                             alert(responseData['msg']);
                         }else{
@@ -74,12 +75,13 @@ export default class BoardTable extends Component{
 
 
     render(){
+        const {name, GoBoardDetail} = this.props;
         let idNumber = 0;
-        let BoardLists = this.props.name.map((index)=>{ return <BoardListComponent key={index.board_key} board_key={index.board_key} contents={index} id={idNumber++} GoBoardDetail={this.props.GoBoardDetail}/>});
+        let boardLists = name.map((index)=>{ return <BoardListComponent key={index.board_key} board_key={index.board_key} contents={index} id={idNumber++} GoBoardDetail={GoBoardDetail}/>});
 
         return(
             <div className="area_content">
-                {BoardLists}
+                {boardLists}
             </div>
         )
     };

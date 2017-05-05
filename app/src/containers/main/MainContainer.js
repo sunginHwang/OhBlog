@@ -4,11 +4,11 @@ import BoardLogo from '../../components/board/BoardLogo';
 import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 import {connect} from 'react-redux';
 import * as types from '../../const/CommonVal'
-import { memberLogin }  from '../../redux/reducers/memberReducers';
+import { memberLogin, memberLogout }  from '../../redux/reducers/memberReducers';
 import { GetBoardCategory }  from '../../redux/reducers/boardReducers';
 
 
-@connect((store) => { return {login : store.memberReducers.login,boardCategory : store.boardReducers.boardCategory};},{memberLogin,GetBoardCategory})
+@connect((store) => { return {login : store.memberReducers.login,boardCategory : store.boardReducers.boardCategory};},{memberLogin,memberLogout,GetBoardCategory})
 export default class MainContainer extends Component{
 
     constructor()
@@ -20,7 +20,8 @@ export default class MainContainer extends Component{
     }
     componentDidMount(){
         /*  this.loginCheck();*/
-        this.props.GetBoardCategory();
+        const {GetBoardCategory} = this.props;
+        GetBoardCategory();
 
     }
 
@@ -44,13 +45,16 @@ export default class MainContainer extends Component{
     }
     /*로그아웃 구현 처리 해야 함*/
     memberLogout(){
-        alert('로그아웃되었습니다');
-        this.props.memberLogin(-1,'none');
+        const {memberLogout} = this.props;
+        memberLogout()
+            .then(result => {alert('로그아웃되었습니다');})
+            .catch(error => {alert(types.SERVER_ERROR_MSG)});
     }
 
     /*로그인 유지시의 이부분 처리 요망*/
     componentWillReceiveProps(nextProps){
-        this.props.login.member.member_key != nextProps.login.member.member_key ? this.props.history.pushState(null,'/') : '';
+        const {login, history} = this.props;
+        login.member.member_key != nextProps.login.member.member_key ? history.pushState(null,'/') : '';
     }
 
     menuToggleClick(){
@@ -59,12 +63,13 @@ export default class MainContainer extends Component{
 
 
     render(){
-        let login = '';
-        let join = '';
+        const {boardCategory, login, children} = this.props;
+        let loginButton = '';
+        let joinButton = '';
         let BoardCategoryList = '';
 
-        if(this.props.boardCategory.boardCategory != undefined){
-            BoardCategoryList = this.props.boardCategory.boardCategory.map((index)=> {
+        if(boardCategory.boardCategory != undefined){
+            BoardCategoryList = boardCategory.boardCategory.map((index)=> {
                 let hrefParam = `/board/${index.category_key}`;
                 return <li key={index.category_key}>
                             <Link key={index.category_key} to={hrefParam} >
@@ -73,17 +78,18 @@ export default class MainContainer extends Component{
                         </li>
             });
         }
-       if(this.props.login.member.member_key == -1){
-           login = <li><Link to="/login">로그인<span className="icon fa-user"></span></Link></li>;
-           join = <li><Link to="/join" >회원가입<span className="icon fa-user-plus"></span></Link></li>;
+
+       if(login.member.member_key == -1){
+           loginButton = <li><Link to="/login">로그인<span className="icon fa-user"></span></Link></li>;
+           joinButton = <li><Link to="/join" >회원가입<span className="icon fa-user-plus"></span></Link></li>;
        }else{
-           login =  <li><a href="#" >{this.props.login.member.member_id}<br/><p onClick={this.memberLogout}>로그아웃</p></a></li>;
-           join = <li><Link to="/edit" >정보수정<span className="icon fa-user-plus"></span></Link></li>
+           loginButton =  <li><a href="#" >{login.member.member_id}<br/><p onClick={this.memberLogout}>로그아웃</p></a></li>;
+           joinButton = <li><Link to="/edit" >정보수정<span className="icon fa-user-plus"></span></Link></li>
        }
 
-        let child = this.props.children && React.cloneElement(this.props.children,
-                                                            {member_key : this.props.login.member.member_key,
-                                                                member_id : this.props.login.member.member_id});
+        let child = children && React.cloneElement(children,
+                                                            {member_key : login.member.member_key,
+                                                             member_id  : login.member.member_id});
 
       return(
           <div id="board_body">
@@ -94,8 +100,8 @@ export default class MainContainer extends Component{
                       <div id="toggleMenu" className="header_content">
                           <nav className="header_content_list">
                               <ul>
-                                  {join}
-                                  {login}
+                                  {joinButton}
+                                  {loginButton}
                                   {BoardCategoryList}
                               </ul>
                           </nav>

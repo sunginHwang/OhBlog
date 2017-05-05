@@ -15,21 +15,22 @@ export default class BoardListComponent extends Component{
 
 
     render(){
-        let title = `/boardDetail/${this.props.board_key}`;
+        const {board_key, id , contents, GoBoardDetail} = this.props;
+        let title = `/boardDetail/${board_key}`;
         
         return(
-                    <article className="article_list" id={this.props.id}>
+                    <article className="article_list" id={id}>
                         <div className="article_list_item">
-                            <img src={types.SERVER_URL+this.props.contents.board_category_img}/>
+                            <img src={types.SERVER_URL+contents.board_category_img}/>
                                 <div className="article_list_item_content">
                                     <div className="article_title">
-                                        <a onClick={(event)=>this.props.GoBoardDetail(title)}>[{this.props.contents.category_name}]<br/>{this.props.contents.title}</a>
+                                        <a onClick={(event)=>GoBoardDetail(title)}>[{contents.category_name}]<br/>{contents.title}</a>
 
                                     </div>
                                     <div className="article_footer">
-                                        <span className="article_date"><span className="icon fa-calendar"></span> {this.props.contents.regi_date}</span>
+                                        <span className="article_date"><span className="icon fa-calendar"></span> {contents.regi_date}</span>
 
-                                        <span className="article_comment"><span className="icon fa-comment"></span> {this.props.contents.comments}</span>
+                                        <span className="article_comment"><span className="icon fa-comment"></span> {contents.comments}</span>
                                     </div>
                                 </div>
                         </div>

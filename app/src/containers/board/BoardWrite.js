@@ -50,8 +50,9 @@ export default class BoardWrite extends Component{
     }
 
     writeForm(){
+        const {member_key} = this.props;
 
-        if(this.props.member_key == -1){
+        if(member_key == -1){
             alert('로그인이 필요합니다');
             return;
         }
@@ -67,35 +68,39 @@ export default class BoardWrite extends Component{
     }
 
     BoardWrite(title,content){
+        const {member_key, params, InsertBoardContent, history} = this.props;
+
         let insert_board = {
             title : title,
             content: content,
-            member_key : this.props.member_key,
-            category_key : this.props.params.category_key,
+            member_key : member_key,
+            category_key : params.category_key,
         }
 
         var insert_data = new FormData();
         insert_data.append( "insert_board", JSON.stringify( insert_board ) );
         insert_data.append('board_sub_img',this.refs.board_sub_img.files[0]);
 
-        this.props.InsertBoardContent(insert_data)
-            .then(result => {alert('게시글 생성 성공');
-                             this.props.history.pushState(null,`/board/${this.props.params.category_key}`);})
-            .catch(error => {alert(types.SERVER_ERROR_MSG);
-                             this.props.history.pushState(null,'/');});
+            InsertBoardContent(insert_data)
+                    .then(result => {alert('게시글 생성 성공');
+                                     history.pushState(null,`/board/${params.category_key}`);})
+                    .catch(error => {alert(types.SERVER_ERROR_MSG);
+                                     history.pushState(null,'/');});
 
 
     }
 
 
     render(){
+        const {member_id} = this.props;
+
         return(
             <div>
                 <div className="main_board_content" id="boardModal">
                     <div className="board_content_area">
                         <header className="board_content_area_header">
                             <div className="board_content_area_header_title"><input type="text" id="title" placeholder="제목을 입력하세요."/></div>
-                            <div className="board_content_area_header_sub"><span>작성자 아이디 : {this.props.member_id}</span></div>
+                            <div className="board_content_area_header_sub"><span>작성자 아이디 : {member_id}</span></div>
 
                             <div className="board_content_area_edit"> <button id="sss" title="Hooray!" onClick={(event)=>this.writeForm()}>글 작성하기</button></div>
                         </header>

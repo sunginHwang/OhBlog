@@ -27,8 +27,9 @@ export default class Board extends Component{
     }
 
     componentDidMount(){
-        if(this.props.board.BoardLists == false ){
-            this.props.GetBoardList(this.props.params.category_key).catch(error => {alert('정지 게시판 처리');
+        const {board, GetBoardList , params} = this.props;
+        if(board.BoardLists == false ){
+            GetBoardList(params.category_key).catch(error => {alert('정지 게시판 처리');
                 this.props.history.pushState(null,'/');});
         }else{
             $(window).scrollTop(localStorage.getItem('boardListScroll'));
@@ -37,10 +38,11 @@ export default class Board extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.params.category_key != nextProps.params.category_key){
+        const { GetBoardList , params, history} = this.props;
+        if(params.category_key != nextProps.params.category_key){
             localStorage.setItem('boardListScroll', 0);
-            this.props.GetBoardList(nextProps.params.category_key).catch(error => {alert('정지 게시판 처리');
-                this.props.history.pushState(null,'/');});
+            GetBoardList(nextProps.params.category_key).catch(error => {alert('정지 게시판 처리');
+                history.pushState(null,'/');});
         }
     }
 
@@ -62,11 +64,12 @@ export default class Board extends Component{
     }
 
     writeBoard(){
-        if(this.props.member_key == -1){
+        const {member_key, params, history} = this.props;
+        if(member_key == -1){
             alert('게시글 작성에는 로그인이 필요합니다.');
             return;
         }
-        this.props.history.pushState(null,`/boardWrite/${this.props.params.category_key}`);
+        history.pushState(null,`/boardWrite/${params.category_key}`);
     }
 
 
@@ -77,6 +80,7 @@ export default class Board extends Component{
     }
 
     render(){
+        const {board, params, member_key} = this.props;
         return(
             <div>
                 <header className="area_header">
@@ -86,9 +90,9 @@ export default class Board extends Component{
                     <div className="board_write_button" onClick={(event)=>this.writeBoard()}>
                     </div>
                 </header>
-                <BoardTable name={this.props.board.BoardLists}
-                            category_key={this.props.params.category_key}
-                            member_key={this.props.member_key}
+                <BoardTable name={board.BoardLists}
+                            category_key={params.category_key}
+                            member_key={member_key}
                             GoBoardDetail={this.GoBoardDetail}
                 />
             </div>

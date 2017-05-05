@@ -18,7 +18,8 @@ export default class MemberJoin extends Component{
     }
 
     componentDidMount(){
-        this.props.DeleteOhjicTable();
+        const {DeleteOhjicTable} = this.props;
+        DeleteOhjicTable();
     }
 
     checkMemberId(){

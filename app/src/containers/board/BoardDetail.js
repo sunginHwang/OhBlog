@@ -36,16 +36,19 @@ export default class BoardDetail extends Component{
     }
 
     componentDidMount() {
+        const {ReadOhjicBoard, history , params} = this.props;
         $(window).scrollTop(0);
-        this.props.ReadOhjicBoard(this.props.params.board_key).catch(error => {alert('정지 게시판 처리');
-            this.props.history.pushState(null,'/');});
+
+        ReadOhjicBoard(params.board_key).catch(error => {alert('정지 게시판 처리');
+            history.pushState(null,'/');});
     }
 
     componentWillReceiveProps(nextProps){
     }
 
     insertComment(){
-        if(this.props.member_key == -1){
+        const {member_key, content , ReadOhjicBoard, InsertBoardComment} = this.props;
+        if(member_key == -1){
             alert('댓글작성을 위해 로그인해주세요.');
             return;
         }
@@ -57,32 +60,36 @@ export default class BoardDetail extends Component{
         }
 
         var insert_comment = {
-            board_key: this.props.content.board_key,
-            member_key: this.props.member_key,
+            board_key: content.board_key,
+            member_key: member_key,
             comment_content : commentContent
         };
 
-        this.props.InsertBoardComment(insert_comment)
-                    .then(result => {this.props.ReadOhjicBoard(this.props.content.board_key);})
-                    .catch(error => {alert(types.SERVER_ERROR_MSG)});
+        InsertBoardComment(insert_comment)
+               .then(result => {ReadOhjicBoard(content.board_key);})
+               .catch(error => {alert(types.SERVER_ERROR_MSG)});
 
         $("#commentInput").val('');
 
     }
 
     deleteComments(comment_key,board_key,comment_member_key){
-        if(this.props.member_key != comment_member_key){
+        const {member_key , ReadOhjicBoard, DeleteBoardComment} = this.props;
+
+        if(member_key != comment_member_key){
             alert('댓글삭제는 본인만 가능합니다');return;
         }
 
-        this.props.DeleteBoardComment(comment_key)
-            .then(result => {this.props.ReadOhjicBoard(board_key);})
+        DeleteBoardComment(comment_key)
+            .then(result => {ReadOhjicBoard(board_key);})
             .catch(error => {alert(types.SERVER_ERROR_MSG)});
 
     }
 
     updateBoard(){
-        if(this.props.member_key != this.props.content.member_key){
+        const { member_key, content , UpdateBoardContent } = this.props;
+
+        if(member_key != content.member_key){
             alert('글 수정은 본인만 가능합니다');return;
         }
 
@@ -90,13 +97,13 @@ export default class BoardDetail extends Component{
         var updateBoardTitle = $(".board_content_area_header_title").text();
 
         var update_board = {
-            board_key: this.props.content.board_key,
-            member_key: this.props.member_key,
+            board_key: content.board_key,
+            member_key: member_key,
             content : updateBoardContent,
             title : updateBoardTitle
         };
 
-        this.props.UpdateBoardContent(update_board)
+        UpdateBoardContent(update_board)
             .then(result => {alert('게시글 수정 성공');
                              this.setState({boardUpdateState: false});
                              $('.board_content').summernote('destroy');
@@ -108,25 +115,29 @@ export default class BoardDetail extends Component{
     }
 
     deleteBoard(){
-        if(this.props.member_key != this.props.content.member_key){
+        const { member_key, content , DeleteBoardContent } = this.props;
+
+        if(member_key != content.member_key){
             alert('글 삭제는 본인만 가능합니다');return;
         }
 
         var delete_board = {
-            board_key: this.props.content.board_key,
-            member_key: this.props.member_key
+            board_key: content.board_key,
+            member_key: member_key
 
         };
 
-        this.props.DeleteBoardContent(delete_board)
+        DeleteBoardContent(delete_board)
             .then(result => {alert('게시글 삭제 성공');
-                this.props.history.pushState(null,'/board/'+this.props.content.category_key);
+                this.props.history.pushState(null,'/board/'+content.category_key);
             })
             .catch(error => {alert(types.SERVER_ERROR_MSG)});
     }
 
     BoardUpdateClick(){
-        if(this.props.member_key != this.props.content.member_key){
+        const { member_key, content , DeleteBoardContent } = this.props;
+
+        if(member_key != content.member_key){
             alert('글 수정은 본인만 가능합니다');return;
         }
 
@@ -165,17 +176,20 @@ export default class BoardDetail extends Component{
 
 
     render(){
-        let comment = '';
+        const { member_key, content , comment } = this.props;
+        let commentList = '';
         let updateButton = '';
         let deleteButton = '';
         let commnetInsert = '';
+
         if(this.props.comment.length >=1 && this.state.boardUpdateState === false){
-            comment = this.props.comment.map((index)=>{return <BoardComment key={index.comment_key}
+            commentList = comment.map((index)=>{return <BoardComment key={index.comment_key}
                                                                             comment={index}
-                                                                            member_key={this.props.member_key}
+                                                                            member_key={member_key}
                                                                             deleteComments={this.deleteComments}/>});
         }
-        if(this.props.member_key == this.props.content.member_key){
+
+        if(member_key == content.member_key){
             if(this.state.boardUpdateState === true){
                 updateButton =  <button onClick={(event)=>this.updateBoard()}>수정완료</button>;
                 commnetInsert = '';
@@ -197,21 +211,21 @@ export default class BoardDetail extends Component{
                 <div className="main_board_content" id="boardModal">
                     <div className="board_content_area">
                         <header className="board_content_area_header">
-                            <div className="board_content_area_header_title"><h3>{this.props.content.title}</h3></div>
-                            <div className="board_content_area_header_sub"><span>{this.props.content.regi_date} 글쓴이 :  {this.props.content.member_id}</span></div>
+                            <div className="board_content_area_header_title"><h3>{content.title}</h3></div>
+                            <div className="board_content_area_header_sub"><span>{content.regi_date} 글쓴이 :  {content.member_id}</span></div>
                             <div className="board_content_area_edit">{updateButton}</div>
                             <div className="board_content_area_edit">{deleteButton}</div>
                         </header>
                         <div className="board_content_area_body">
-                            <div className="board_content" dangerouslySetInnerHTML={ {__html: this.props.content.content} }></div>
+                            <div className="board_content" dangerouslySetInnerHTML={ {__html:content.content} }></div>
                         </div>
                     </div>
                     <div className="board_comment_area">
                         <header className="board_comment_area_header">
-                            <div><span>댓글수 : </span><span>{this.props.comment.length}</span></div>
+                            <div><span>댓글수 : </span><span>{comment.length}</span></div>
                         </header>
                         {commnetInsert}
-                        {comment}
+                        {commentList}
                     </div>
                 </div>
                 <div className="main_board_sidebar">

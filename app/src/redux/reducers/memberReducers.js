@@ -11,6 +11,13 @@ export function memberLogin(member_id,member_password){
     }
 }
 
+export function memberLogout(){
+    return{
+        type : types.USER_LOGOUT,
+        promise: { method: 'get', url:commonTypes.SERVER_URL+'/api/Member/logoutMember', data: null }
+    }
+}
+
 const initialState ={
     login : {
         member :
@@ -19,7 +26,7 @@ const initialState ={
                 member_id : 'none'
             }
     },
-    fetchingUpdate : false
+    isloading : false
 };
 
 export default function memberReducers(state=initialState,action){
@@ -29,20 +36,40 @@ export default function memberReducers(state=initialState,action){
         case types.USER_LOGIN_REQUEST : {
             return {
                 ...state,
-                fetchingUpdate: true
+                isloading: false
             };
         }
         case types.USER_LOGIN_SUCCESS : {
             return {
                 ...state,
                 login : action.result.data,
-                fetchingUpdate: true
+                isloading: true
             };
         }
         case types.USER_LOGIN_FAILURE : {
             return {
                 ...state,
-                fetchingUpdate: true
+                isloading: true
+            };
+        }
+
+        case types.USER_LOGOUT_REQUEST : {
+            return {
+                ...state,
+                isloading: false
+            };
+        }
+        case types.USER_LOGOUT_SUCCESS : {
+            return {
+                ...state,
+                login : action.result.data,
+                isloading: true
+            };
+        }
+        case types.USER_LOGOUT_FAILURE : {
+            return {
+                ...state,
+                isloading: true
             };
         }
 
