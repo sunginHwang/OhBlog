@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './redux/store/Store';
-import HomeView from './components/board/HomeView';
+import HomeView from './components/boards/HomeView';
 import Board from './containers/board/Board';
 import BoardDetail from './containers/board/BoardDetail';
 import BoardWrite from './containers/board/BoardWrite';
-import NoCategoryBoard from './components/errorView/NoCategoryBoard';
+import NoCategoryBoard from './components/errorViews/NoCategoryBoard';
 import MainContainer from  './containers/main/MainContainer';
 import MemberJoin from './containers/member/MemberJoin';
 import MemberLogin from './containers/member/MemberLogin'
