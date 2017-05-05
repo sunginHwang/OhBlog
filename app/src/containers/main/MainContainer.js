@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import BoardLogo from '../../components/boards/BoardLogo';
+import BoardLogo from '../../components/board/BoardLogo';
 import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 import {connect} from 'react-redux';
 import * as types from '../../const/CommonVal'
