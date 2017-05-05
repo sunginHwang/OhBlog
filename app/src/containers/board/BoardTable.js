@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import { Link, Router, Route, browserHistory } from 'react-router';
-import BoardListComponent from '../../components/board/BoardListComponent';
+import BoardListComponent from '../../componentsss/board/BoardListComponent';
 import * as types from '../../const/CommonVal'
 import { GetOhjicTable }  from '../../redux/reducers/boardReducers';
 import 'bootstrap/dist/js/bootstrap.js';
