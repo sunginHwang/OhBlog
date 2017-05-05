@@ -6,7 +6,7 @@ import { memberLogin }  from '../../redux/reducers/memberReducers';
 
 
 @connect((store) => {return {login : store.memberReducers.login};})
-export default class MemberEdits extends Component{
+export default class MemberEdit extends Component{
 
     constructor() {
         super();
