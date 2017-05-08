@@ -1,4 +1,5 @@
-import * as types from '../../const/ActionType'
+import * as types from '../../const/ActionType';
+import * as commonFunction from '../../common/commonFunction';
 import * as commonTypes from '../../const/CommonVal';
 
 export function GetOhjicTable(data){
@@ -10,19 +11,16 @@ export function GetOhjicTable(data){
     }
 }
 
-export function DeleteOhjicTable(){
+export function InitializeBoardCategory(){
     return{
-        type : types.DELETE_TODO,
-        userdata : {
-            BoardLists : []
-        }
+        type : types.INITIALIZE_BOARD_CATEGORY,
     }
 }
 
-export function GetBoardList(boardCategory){
+export function GetBoardList(boardCategory, limit = 1){
     return{
         type : types.GET_BOARD_LIST,
-        promise: { method: 'GET', url:commonTypes.SERVER_URL+'/api/Board/get_list?category='+boardCategory, data: null }
+        promise: { method: 'GET', url:commonTypes.SERVER_URL+'/api/Board/get_list?category='+boardCategory+'&limit='+limit, data: null }
     }
 }
 
@@ -280,14 +278,9 @@ export default function boardReducers(state=initialState,action){
             };
         }
 
-        case types.GET_TODO : {
-            return Object.assign({}, state, {
-                board : action.userdata
-            });
-        }
-        case types.DELETE_TODO : {
+        case types.INITIALIZE_BOARD_CATEGORY : {
             return Object.assign({},state,{
-                board : action.userdata
+                board :  {BoardLists : []}
             });
             break;
         }

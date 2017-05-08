@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import * as types from '../../const/CommonVal';
 import { memberLogin }  from '../../redux/reducers/memberReducers';
-import { DeleteOhjicTable } from '../../redux/reducers/boardReducers';
+import { InitializeBoardCategory } from '../../redux/reducers/boardReducers';
 import { connect } from 'react-redux';
 
-@connect((store) => {return {};},{memberLogin,DeleteOhjicTable})
+@connect((store) => {return {};},{memberLogin,InitializeBoardCategory})
 export default class MemberLogin extends Component{
 
     constructor()
@@ -15,8 +15,8 @@ export default class MemberLogin extends Component{
     }
 
     componentDidMount(){
-        const {DeleteOhjicTable} = this.props;
-        DeleteOhjicTable();
+        const {InitializeBoardCategory} = this.props;
+        InitializeBoardCategory();
     }
 
     memberLogin(){

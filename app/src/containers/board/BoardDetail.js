@@ -48,15 +48,14 @@ export default class BoardDetail extends Component{
 
     insertComment(){
         const {member_key, content , ReadOhjicBoard, InsertBoardComment} = this.props;
+
         if(member_key == -1){
-            alert('댓글작성을 위해 로그인해주세요.');
-            return;
+            alert('댓글작성을 위해 로그인해주세요.');return;
         }
         var commentContent = $("#commentInput").val();
 
         if(commentContent.length < 1){
-            alert('댓글에 1글자 이상은 필요합니다.');
-            return false;
+            alert('댓글에 1글자 이상은 필요합니다.');return;
         }
 
         var insert_comment = {
@@ -152,7 +151,6 @@ export default class BoardDetail extends Component{
                     method: 'POST',
                     body: data
                 }).then((response) => {
-
                         if(response.ok){return response.json();}
                         else {throw new Error("Server response wasn't OK");}
                     })

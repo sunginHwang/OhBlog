@@ -38,6 +38,10 @@ export function doFunction(url,mode){
 
 }
 
+export function makeParameterFormat(formatName, formatData){
+    var data = new FormData();
+    return data.append( formatName, JSON.stringify( formatData ) );
+}
 
 export function h_feach(url,mode,successFunc,errorFunc){
     let result = '';

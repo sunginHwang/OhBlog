@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link, Router, Route, browserHistory } from 'react-router';
 import BoardListComponent from '../../components/board/BoardListComponent';
 import * as types from '../../const/CommonVal'
-import { GetOhjicTable }  from '../../redux/reducers/boardReducers';
+import { GetBoardList }  from '../../redux/reducers/boardReducers';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'jquery/dist/jquery.min.js';
@@ -13,7 +13,7 @@ import 'jquery/dist/jquery';
 
 require('../../summernote/summernote.js');
 
-@connect((store) => {return {};},{GetOhjicTable})
+@connect((store) => {return {};},{GetBoardList})
 export default class BoardTable extends Component{
 
     constructor()
@@ -43,32 +43,16 @@ export default class BoardTable extends Component{
 
     /*무한스크롤*/
     BoardInfinityScroll(){
-        const {name, category_key, GetOhjicTable} = this.props;
+        const {name, category_key, GetBoardList} = this.props;
         $(window).scroll(() => {
             // WHEN HEIGHT UNDER SCROLLBOTTOM IS LESS THEN 250
             if (($(document).height() - $(window).height() - $(window).scrollTop() < 250) && this.state.infinityScroll == false) {
+                console.log(name.length);
                 let limit = name.length-1;
                 this.setState({infinityScroll : true});
-                fetch(types.SERVER_URL+`/api/Board/get_list?category=${category_key}&limit=${limit}`)
-                    .then((response) => {
-                        if(response.ok){
-                            return response.json();
-                        } else {
-                            throw new Error("Server response wasn't OK");
-                        }
-                    })
-                    .then((responseData) => {
-                        if(responseData['state'] == 'success'){
-                            GetOhjicTable(responseData['result']);
-                        }else if(responseData['state'] == 'fail'){
-                            alert(responseData['msg']);
-                        }else{
-                            alert(types.CLIENT_ERROR_MSG);
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(types.SERVER_ERROR_MSG);
-                    });
+                GetBoardList(category_key,limit).catch(error => {alert('정지 게시판 처리');
+                    history.pushState(null,'/');});
+
             }
         });
     }

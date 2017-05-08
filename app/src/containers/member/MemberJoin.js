@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import * as types from '../../const/CommonVal'
-import {DeleteOhjicTable} from '../../redux/reducers/boardReducers'
+import {InitializeBoardCategory} from '../../redux/reducers/boardReducers'
 
-@connect((store)=>{return{};},{DeleteOhjicTable})
+@connect((store)=>{return{};},{InitializeBoardCategory})
 export default class MemberJoin extends Component{
 
     constructor() {
@@ -18,8 +18,8 @@ export default class MemberJoin extends Component{
     }
 
     componentDidMount(){
-        const {DeleteOhjicTable} = this.props;
-        DeleteOhjicTable();
+        const {InitializeBoardCategory} = this.props;
+        InitializeBoardCategory();
     }
 
     checkMemberId(){
